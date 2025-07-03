@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_advGWRDialog(object):
     def setupUi(self, advDialog):
         advDialog.setObjectName("advDialog")
@@ -54,17 +55,16 @@ class Ui_advGWRDialog(object):
         self.mccComboBox.addItem("")
         self.mccComboBox.addItem("")
         self.mccComboBox.addItem("")
-        
-        
+
         self.advDialog = advDialog
         self.mcTest = "Off"
         self.varSTD = "On"
         self.locollinear = "Off"
         self.mcc = "None"
-        
+
         self.retranslateUi(advDialog)
         QtCore.QMetaObject.connectSlotsByName(advDialog)
-    
+
     def retranslateUi(self, advDialog):
         _translate = QtCore.QCoreApplication.translate
         advDialog.setWindowTitle(_translate("advDialog", "Advanced Options"))
@@ -85,19 +85,18 @@ class Ui_advGWRDialog(object):
         self.mccComboBox.setItemText(2, _translate("advDialog", "Sidak"))
         self.mccComboBox.setItemText(3, _translate("advDialog", "FDR"))
 
-    
     def loadSettings(self):
-        
+
         if self.locollinear == "Off":
             self.locollinearComboBox.setCurrentIndex(0)
         else:
             self.locollinearComboBox.setCurrentIndex(1)
-        
+
         if self.mcTest == "Off":
             self.mcComboBox.setCurrentIndex(0)
         else:
             self.mcComboBox.setCurrentIndex(1)
-        
+
         if self.varSTD == "On":
             self.varSTDComboBox.setCurrentIndex(0)
         else:
@@ -111,7 +110,6 @@ class Ui_advGWRDialog(object):
             self.mccComboBox.setCurrentIndex(2)
         elif self.mcc == "FDR":
             self.mccComboBox.setCurrentIndex(3)
-            
 
     def addActionsToUI(self):
         self.applyBTN.clicked.connect(self.applyOnClick)
@@ -123,11 +121,9 @@ class Ui_advGWRDialog(object):
         self.mcTest = self.mcComboBox.currentText()
         self.mcc = self.mccComboBox.currentText()
         self.advDialog.close()
-    
+
     def resetOnClick(self):
         self.varSTDComboBox.setCurrentIndex(0)
         self.locollinearComboBox.setCurrentIndex(0)
         self.mcComboBox.setCurrentIndex(0)
         self.mccComboBox.setCurrentIndex(0)
-
-

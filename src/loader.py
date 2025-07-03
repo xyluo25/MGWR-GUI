@@ -7,7 +7,9 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys,os
+import sys
+import os
+
 
 class Ui_runningDialog(object):
     def setupUi(self, runningDialog):
@@ -45,10 +47,7 @@ class Ui_runningDialog(object):
         self.printTextEdit.setObjectName("printTextEdit")
         self.gridLayout.addWidget(self.printTextEdit, 1, 0, 1, 1)
         runningDialog.setLayout(self.gridLayout)
-        
-        
-    
-        
+
         """
         self.movie = QtGui.QMovie(resource_path("img/loader-50.gif"), QtCore.QByteArray())
         self.movie.setCacheMode(QtGui.QMovie.CacheAll)
@@ -65,7 +64,7 @@ class Ui_runningDialog(object):
         runningDialog.setWindowTitle(_translate("runningDialog", "MGWR Running"))
         self.label.setText(_translate("runningDialog", "Time Elapsed:"))
         self.label_2.setText(_translate("runningDialog", "00:00:00"))
-    
+
     def restartTimer(self):
         self.printTextEdit.clear()
         self.label_2.setText("00:00:00")
@@ -86,6 +85,7 @@ class Ui_runningDialog(object):
         self.printTextEdit.setTextCursor(cursor)
         self.printTextEdit.ensureCursorVisible()
 
+
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
@@ -93,14 +93,11 @@ def resource_path(relative_path):
 
 
 class EmittingStream(QtCore.QObject):
-    
+
     textWritten = QtCore.pyqtSignal(str)
-    
+
     def write(self, text):
         self.textWritten.emit(str(text))
-    
+
     def flush(self):
         pass
-
-
-

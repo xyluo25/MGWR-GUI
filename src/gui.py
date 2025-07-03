@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-#_Author: Ziqi Li (liziqi1992@gmail.com)
-#Generated using pyuic5 -x gui.ui -o gui.py
+# _Author: Ziqi Li (liziqi1992@gmail.com)
+# Generated using pyuic5 -x gui.ui -o gui.py
 
 
-import os,sys
+import os
+import sys
+import time
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import numpy as np
@@ -19,9 +21,7 @@ from .loader import Ui_runningDialog
 from .advancedMGWR import Ui_advMGWRDialog
 from .advancedGWR import Ui_advGWRDialog
 from .summaryGUI import Ui_summaryDlg
-import multiprocessing
 import psutil
-from time import sleep
 import logging
 from io import StringIO
 
@@ -333,7 +333,7 @@ class Ui_Dialog(object):
         self.pool = pool
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-    
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "MGWR 2.2"))
@@ -485,7 +485,7 @@ class Ui_Dialog(object):
         self.bwMax.setValidator(validator)
         self.bwInterval.setValidator(validator)
         self.bwPreDefined.setValidator(validator)
-        
+
         self.fixedBox.currentIndexChanged.connect(self.changeKernel)
         self.bwDropdown.currentIndexChanged.connect(self.changeSearchMethod)
         self.modelTypeDropdown.currentIndexChanged.connect(self.modelChanged)
@@ -613,7 +613,7 @@ class Ui_Dialog(object):
     def deGreyOutLineEdit(self, lineEdit):
         lineEdit.setStyleSheet("")
         lineEdit.setDisabled(False)
-    
+
     def changeKernel(self, index):
         #adaptive
         if index == 0:
@@ -697,7 +697,7 @@ class Ui_Dialog(object):
 
         self.modelTypeDropdown.clear()
         self.modelTypeDropdown.addItem("Gaussian")
-        
+
         self.bwDropdown.clear()
         self.bwDropdown.addItem("Golden Section")
         self.bwDropdown.addItem("Interval Search")
@@ -852,7 +852,7 @@ class Ui_Dialog(object):
                 self.family = Gaussian()
             elif self.modelTypeDropdown.currentText() == "Poisson":
                 self.family = Poisson()
-                if self.OffsetLabel.text() is not '':
+                if self.OffsetLabel.text() != '':
                     self.offset = self.data[[self.OffsetLabel.text()
                                              ]].as_matrix().reshape(-1, 1)
             elif self.modelTypeDropdown.currentText() == "Binomial":
@@ -979,9 +979,9 @@ class Ui_Dialog(object):
     def runGWR(self):
         self.begin_t = datetime.now()
         print("Started at: ", str(self.begin_t).split('.', 2)[0])
-        
+
         self.glm_rslt = GLM(self.y,self.X, constant=self.constant,family=self.family,offset = self.offset).fit()
-        
+
         try:
             if self.isGWR:
                 print("Running GWR...")
@@ -1040,7 +1040,7 @@ class Ui_Dialog(object):
                 if self.locollinear != "Off":
                     print("Computing multicollinearity diagnostics...")
                     self.locollinearResults = self.results.local_collinearity()
-                
+
                 if self.bw_ci != "Off":
                     print("Computing bandwidth confidence interval...")
                     self.bw_intervals = self.results.get_bws_intervals(self.selector)
@@ -1060,7 +1060,7 @@ class Ui_Dialog(object):
                     multi=True,
                     constant=self.constant,
                     spherical=self.coorType)
-                    
+
                 if self.search == 'golden_section':
                     self.bws = self.selector.search(
                         search_method='golden_section',
@@ -1071,7 +1071,7 @@ class Ui_Dialog(object):
                         pool=self.pool,
                         verbose=True)
                     self.init_multi_bw = self.selector.bw_init
-                
+
                 elif self.search == 'interval':
                     min = int(float(self.bwMin.text()))
                     max = int(float(self.bwMax.text()))
@@ -1100,7 +1100,7 @@ class Ui_Dialog(object):
                         init_multi=self.init_multi_bw,
                         pool=self.pool,
                         verbose=True)
-                
+
                 print("Computing inference...")
                 suggested_n_chunks = int(np.ceil(1.5 * (self.selector.X_loc.shape[0])**2*8*self.selector.X_loc.shape[1]/psutil.virtual_memory().available))
                 self.results = MGWR(
@@ -1122,11 +1122,11 @@ class Ui_Dialog(object):
                 if self.locollinear != "Off":
                     print("Computing multicollinearity diagnostics...")
                     self.locollinearResults = self.results.local_collinearity()
-                
+
                 if self.bw_ci != "Off":
                     print("Computing bandwidth confidence intervals...")
                     self.bw_intervals = self.results.get_bws_intervals(self.selector)
-                
+
                 self.end_t = datetime.now()
                 outputMGWR(self)
 

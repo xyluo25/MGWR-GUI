@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_advMGWRDialog(object):
     def setupUi(self, advDialog):
         advDialog.setObjectName("advDialog")
@@ -81,7 +82,6 @@ class Ui_advMGWRDialog(object):
         self.mccComboBox.addItem("")
         '''
 
-        
         self.advDialog = advDialog
         self.varSTD = "On"
         self.mcTest = "Off"
@@ -90,11 +90,11 @@ class Ui_advMGWRDialog(object):
         self.init = "GWR estimates"
         self.converg = "1e-5"
         self.bw_ci = "Off"
-        #self.mcc = "None"
-        
+        # self.mcc = "None"
+
         self.retranslateUi(advDialog)
         QtCore.QMetaObject.connectSlotsByName(advDialog)
-    
+
     def retranslateUi(self, advDialog):
         _translate = QtCore.QCoreApplication.translate
         advDialog.setWindowTitle(_translate("advDialog", "Advanced Options"))
@@ -129,7 +129,7 @@ class Ui_advMGWRDialog(object):
         self.groupBox_6.setTitle(_translate("advDialog", "Bandwidths confidence intervals"))
         self.bwciComboBox.setItemText(0, _translate("advDialog", "Off"))
         self.bwciComboBox.setItemText(1, _translate("advDialog", "On"))
-        
+
         '''
         self.groupBox_6.setTitle(_translate("advDialog", "Multiple comparison correction"))
         self.mccComboBox.setItemText(0, _translate("advDialog", "None"))
@@ -137,14 +137,14 @@ class Ui_advMGWRDialog(object):
         self.mccComboBox.setItemText(2, _translate("advDialog", "Sidak"))
         self.mccComboBox.setItemText(3, _translate("advDialog", "FDR"))
         '''
-    
+
     def loadSettings(self):
-        
+
         if self.locollinear == "Off":
             self.locollinearComboBox.setCurrentIndex(0)
         else:
             self.locollinearComboBox.setCurrentIndex(1)
-        
+
         if self.mcTest == "Off":
             self.mcComboBox.setCurrentIndex(0)
         else:
@@ -154,7 +154,7 @@ class Ui_advMGWRDialog(object):
             self.varSTDComboBox.setCurrentIndex(0)
         else:
             self.varSTDComboBox.setCurrentIndex(1)
-        
+
         if self.soc == "SOC-f":
             self.SOCComboBox.setCurrentIndex(0)
         else:
@@ -169,13 +169,12 @@ class Ui_advMGWRDialog(object):
             self.convComboBox.setCurrentIndex(0)
         else:
             self.convComboBox.setCurrentIndex(1)
-        
+
         if self.bw_ci == "Off":
             self.bwciComboBox.setCurrentIndex(0)
         else:
             self.bwciComboBox.setCurrentIndex(1)
-        
-        
+
         '''
         if self.mcc == "None":
             self.mccComboBox.setCurrentIndex(0)
@@ -199,10 +198,10 @@ class Ui_advMGWRDialog(object):
         self.locollinear = self.locollinearComboBox.currentText()
         self.mcTest = self.mcComboBox.currentText()
         self.bw_ci = self.bwciComboBox.currentText()
-        #self.mcc = self.mccComboBox.currentText()
-        
+        # self.mcc = self.mccComboBox.currentText()
+
         self.advDialog.close()
-    
+
     def resetOnClick(self):
         self.locollinearComboBox.setCurrentIndex(0)
         self.mcComboBox.setCurrentIndex(0)
@@ -211,6 +210,4 @@ class Ui_advMGWRDialog(object):
         self.initComboBox.setCurrentIndex(0)
         self.convComboBox.setCurrentIndex(0)
         self.bwciComboBox.setCurrentIndex(0)
-        #self.mccComboBox.setCurrentIndex(0)
-
-
+        # self.mccComboBox.setCurrentIndex(0)

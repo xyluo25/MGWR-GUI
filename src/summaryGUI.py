@@ -7,21 +7,23 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+
 class Ui_summaryDlg(object):
     def setupUi(self, summaryDlg):
-        
+
         summaryDlg.setObjectName("summaryDlg")
         summaryDlg.setWindowModality(QtCore.Qt.WindowModal)
         summaryDlg.setEnabled(True)
         summaryDlg.resize(750, 400)
-        
+
         grid = QtWidgets.QGridLayout()
         summaryDlg.setLayout(grid)
         font = QtGui.QFont()
         font.setFamily("Courier New")
         font.setPointSize(14)
         summaryDlg.setFont(font)
-        
+
         self.summaryEdit = QtWidgets.QTextEdit()
         self.summaryEdit.setReadOnly(True)
         grid.addWidget(self.summaryEdit, 0,0)
@@ -38,7 +40,6 @@ class Ui_summaryDlg(object):
         self.summaryEdit.setText(text)
 
 
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -47,4 +48,3 @@ if __name__ == "__main__":
     ui.setupUi(summaryDlg)
     summaryDlg.show()
     sys.exit(app.exec_())
-
